@@ -1,5 +1,0 @@
-# Copy to local.properties (already git-ignored) and replace with your own values.
-# These are client identifiers/configuration only; NEVER put Cloudinary API secrets here.
-AGORA_APP_ID=your_agora_app_id
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_UPLOAD_PRESET=your_unsigned_upload_preset
