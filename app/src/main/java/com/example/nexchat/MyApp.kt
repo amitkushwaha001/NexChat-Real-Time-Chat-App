@@ -19,12 +19,10 @@ class MyApp : Application() {
         // Firebase Initialization
         FirebaseApp.initializeApp(this)
 
-        // Cloudinary Initialization using Centralized Constants
+        // Unsigned Cloudinary uploads do not require an API key or API secret in the client.
         try {
             val config: MutableMap<String, String> = HashMap()
             config["cloud_name"] = Constants.CLOUDINARY_CLOUD_NAME
-            config["api_key"] = Constants.CLOUDINARY_API_KEY
-            config["api_secret"] = Constants.CLOUDINARY_API_SECRET
             MediaManager.init(this, config)
         } catch (e: Exception) {
             android.util.Log.e("MyApp", "Cloudinary already initialized or failed: ${e.message}")
