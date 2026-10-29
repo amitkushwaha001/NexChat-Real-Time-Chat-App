@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -6,6 +8,19 @@ plugins {
     alias(libs.plugins.hilt.android)
     kotlin("kapt")
 }
+
+// Read client configuration from untracked local.properties or CI environment variables.
+// Never put server-side secrets in BuildConfig: anything embedded here is extractable from the APK.
+val localProps = Properties().apply {
+    val configFile = rootProject.file("local.properties")
+    if (configFile.exists()) configFile.inputStream().use { load(it) }
+}
+
+fun configValue(key: String): String =
+    localProps.getProperty(key) ?: System.getenv(key) ?: ""
+
+fun buildConfigString(value: String): String =
+    "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"") + "\""
 
 android {
     namespace = "com.example.nexchat"
@@ -19,6 +34,10 @@ android {
         versionName = "1.0"
         multiDexEnabled = true
 
+        buildConfigField("String", "AGORA_APP_ID", buildConfigString(configValue("AGORA_APP_ID")))
+        buildConfigField("String", "CLOUDINARY_CLOUD_NAME", buildConfigString(configValue("CLOUDINARY_CLOUD_NAME")))
+        buildConfigField("String", "CLOUDINARY_UPLOAD_PRESET", buildConfigString(configValue("CLOUDINARY_UPLOAD_PRESET")))
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -27,7 +46,6 @@ android {
         buildConfig = true
         compose = true
     }
-
 
     buildTypes {
         release {
@@ -72,7 +90,6 @@ dependencies {
     implementation(libs.firebase.messaging)
     implementation("com.facebook.fresco:fresco:3.6.0")
     implementation("com.facebook.fresco:imagepipeline-okhttp3:3.6.0")
-
 
     // Hilt
     implementation(libs.hilt.android)
