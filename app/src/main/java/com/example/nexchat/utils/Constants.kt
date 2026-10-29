@@ -1,12 +1,15 @@
 package com.example.nexchat.utils
 
+import com.example.nexchat.BuildConfig
+
 object Constants {
-    const val AGORA_APP_ID = "6f0b4d4b18c54c3080689369f9d774e5"
-    
-    // Cloudinary Config
-    const val CLOUDINARY_CLOUD_NAME = "dpdr51wnk"
-    const val CLOUDINARY_API_KEY = "269335299185984"
-    const val CLOUDINARY_API_SECRET = "og4cGv9Aww2kfuj-_qiA4Q7b7pk"
+    // Public client identifier: configure via local.properties or CI environment.
+    // Do not place server-side secrets in BuildConfig or the APK.
+    val AGORA_APP_ID: String = BuildConfig.AGORA_APP_ID
+
+    // Cloudinary client-side configuration. Never embed CLOUDINARY_API_SECRET in the app.
+    val CLOUDINARY_CLOUD_NAME: String = BuildConfig.CLOUDINARY_CLOUD_NAME
+    val CLOUDINARY_UPLOAD_PRESET: String = BuildConfig.CLOUDINARY_UPLOAD_PRESET
 
     fun formatLastSeen(timestamp: Long): String {
         val sdf = java.text.SimpleDateFormat(
@@ -15,7 +18,7 @@ object Constants {
         )
         val now = System.currentTimeMillis()
         val diff = now - timestamp
-        
+
         return when {
             diff < 60000 -> "online"
             else -> "last seen today at ${sdf.format(java.util.Date(timestamp))}"
