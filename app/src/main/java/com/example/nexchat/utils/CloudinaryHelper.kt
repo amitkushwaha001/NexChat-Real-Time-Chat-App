@@ -17,6 +17,7 @@ object CloudinaryHelper {
         }
 
         MediaManager.get().upload(uri)
+            .unsigned(Constants.CLOUDINARY_UPLOAD_PRESET)
             .option("folder", folder)
             .option("resource_type", resourceType)
             .callback(object : UploadCallback {
