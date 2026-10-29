@@ -179,8 +179,8 @@ NexChat follows the **MVVM (Model-View-ViewModel)** pattern recommended by Googl
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/amitkushwaha001/Chat-App-Firebase-Real-time-messaging-Application.git
-   cd Chat-App-Firebase-Real-time-messaging-Application
+   git clone https://github.com/amitkushwaha001/NexChat-Real-Time-Chat-App.git
+   cd NexChat-Real-Time-Chat-App
    ```
 
 2. **Open in Android Studio**
@@ -191,15 +191,11 @@ NexChat follows the **MVVM (Model-View-ViewModel)** pattern recommended by Googl
    - Place at `app/google-services.json`
    - **> Note:** The `google-services.json` file is not included in this repository for security reasons. Download your own file from Firebase Console and place it inside the `app/` directory before running the project.
 
-4. **Configure secrets** in `app/src/main/java/com/example/nexchat/utils/Constants.kt`:
-   ```kotlin
-   object Constants {
-       const val AGORA_APP_ID = "your_agora_app_id"
-       const val CLOUDINARY_CLOUD_NAME = "your_cloud_name"
-       const val CLOUDINARY_API_KEY = "your_api_key"
-       const val CLOUDINARY_API_SECRET = "your_api_secret"
-   }
-   ```
+4. **Configure local client settings**:
+   - Copy `local.properties.example` to `local.properties` in the project root.
+   - Fill in your Agora App ID, Cloudinary cloud name, and Cloudinary unsigned upload preset name.
+   - Keep `local.properties` untracked; never commit API secrets.
+   - Configure a restricted unsigned preset in Cloudinary with suitable file-size, file-type, and folder restrictions. Because the preset name is public in the app, use a server-side signed upload flow if your upload policy requires stronger abuse protection.
 
 5. **Build & Run**
    ```bash
