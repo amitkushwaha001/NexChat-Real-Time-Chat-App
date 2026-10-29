@@ -9,15 +9,15 @@ plugins {
     kotlin("kapt")
 }
 
-// Read client configuration from untracked local.properties or CI environment variables.
+// Read client configuration from untracked secrets.properties or CI environment variables.
 // Never put server-side secrets in BuildConfig: anything embedded here is extractable from the APK.
-val localProps = Properties().apply {
-    val configFile = rootProject.file("local.properties")
+val secretProps = Properties().apply {
+    val configFile = rootProject.file("secrets.properties")
     if (configFile.exists()) configFile.inputStream().use { load(it) }
 }
 
 fun configValue(key: String): String =
-    localProps.getProperty(key) ?: System.getenv(key) ?: ""
+    secretProps.getProperty(key) ?: System.getenv(key) ?: ""
 
 fun buildConfigString(value: String): String =
     "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"") + "\""
