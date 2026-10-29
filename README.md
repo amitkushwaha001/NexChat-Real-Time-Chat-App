@@ -192,9 +192,9 @@ NexChat follows the **MVVM (Model-View-ViewModel)** pattern recommended by Googl
    - **> Note:** The `google-services.json` file is not included in this repository for security reasons. Download your own file from Firebase Console and place it inside the `app/` directory before running the project.
 
 4. **Configure local client settings**:
-   - Copy `local.properties.example` to `local.properties` in the project root.
+   - Copy `secrets.properties.example` to `secrets.properties` in the project root.
    - Fill in your Agora App ID, Cloudinary cloud name, and Cloudinary unsigned upload preset name.
-   - Keep `local.properties` untracked; never commit API secrets.
+   - Keep `secrets.properties` untracked; never commit API secrets.
    - Configure a restricted unsigned preset in Cloudinary with suitable file-size, file-type, and folder restrictions. Because the preset name is public in the app, use a server-side signed upload flow if your upload policy requires stronger abuse protection.
 
 5. **Build & Run**
